@@ -4,7 +4,7 @@ var uniqueFilename = require('unique-filename')
 const app = express()
 
 app.get('/', function (req, res) {
-    var filename = uniqueFilename('', 'study-pdf') + ".pdf"
+    var filename = uniqueFilename('downloads', 'study-pdf') + ".pdf"
     phantom.create().then(function(ph) {
         ph.createPage().then(function(page) {
             page.property('userAgent', 'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0');
