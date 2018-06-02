@@ -3,7 +3,8 @@ var phantom = require('phantom');
 var uniqueFilename = require('unique-filename')
 const app = express()
 
-app.get('/', function (req, res) {
+app.get('/download/:id', function (req, res) {
+    var id = req.params.id;
     var filename = uniqueFilename('downloads', 'study-pdf') + ".pdf"
     phantom.create().then(function(ph) {
         ph.createPage().then(function(page) {
@@ -12,7 +13,7 @@ app.get('/', function (req, res) {
                 format: 'A4',
                 orientation: 'portrait',
               });
-            page.open("http://localhost:8080/new-gadwa/get-pdf/12").then(function(status) {
+            page.open("http://localhost:8080/new-gadwa/get-pdf/" + id).then(function(status) {
                 page.render(filename).then(function() {
                     console.log('Page Rendered');
                     ph.exit();
